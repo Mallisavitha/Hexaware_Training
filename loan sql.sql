@@ -13,9 +13,9 @@ CREATE TABLE Customer (
 CREATE TABLE Loan (
     loanId INT PRIMARY KEY,
     customerId INT NOT NULL,
-    principalAmount DECIMAL(12,2) NOT NULL CHECK (principalAmount > 0),
-    interestRate DECIMAL(5,2) NOT NULL CHECK (interestRate > 0),
-    loanTerm INT NOT NULL CHECK (loanTerm > 0),
+    principalAmount DECIMAL(12,2) NOT NULL,
+    interestRate DECIMAL(5,2) NOT NULL ,
+    loanTerm INT NOT NULL ,
     loanType VARCHAR(50) CHECK (loanType IN ('CarLoan', 'HomeLoan')),
     loanStatus VARCHAR(50) CHECK (loanStatus IN ('Pending', 'Approved', 'Rejected')),
     FOREIGN KEY (customerId) REFERENCES Customer(customerId) ON DELETE CASCADE
@@ -24,14 +24,14 @@ CREATE TABLE Loan (
 CREATE TABLE HomeLoan (
     loanId INT PRIMARY KEY,
     propertyAddress VARCHAR(255),
-    propertyValue INT CHECK (propertyValue > 0),
+    propertyValue INT CHECK ,
     FOREIGN KEY (loanId) REFERENCES Loan(loanId) ON DELETE CASCADE
 );
 
 CREATE TABLE CarLoan (
     loanId INT PRIMARY KEY,
     carModel VARCHAR(100),
-    carValue INT CHECK (carValue > 0),
+    carValue INT ,
     FOREIGN KEY (loanId) REFERENCES Loan(loanId) ON DELETE CASCADE
 );
 
