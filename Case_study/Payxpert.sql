@@ -1,0 +1,53 @@
+CREATE DATABASE payXpert;
+USE payXpert;
+
+CREATE TABLE Employee(
+EmployeeID INT PRIMARY KEY AUTO_INCREMENT, 
+FirstName VARCHAR(100) NOT NULL,
+LastName VARCHAR(100) NOT NULL,
+DateOfBirth DATE NOT NULL,
+Gender VARCHAR(10) NOT NULL,
+Email VARCHAR(100) UNIQUE NOT NULL,
+PhoneNumber VARCHAR(20) UNIQUE NOT NULL,
+Address TEXT NOT NULL,
+Position VARCHAR(100) NOT NULL,
+JoiningDate DATE NOT NULL,
+TerminationDate DATE 
+);
+
+CREATE TABLE Payroll(
+PayrollID INT PRIMARY KEY AUTO_INCREMENT,
+EmployeeID INT,
+PayPeriodsStartDate DATE NOT NULL,
+PayPeriodsEndDate DATE,
+BasicSalary DECIMAL(10,2) NOT NULL,
+OverTimePay DECIMAL(10,2) NOT NULL,
+Deductions DECIMAL(10,2) NOT NULL,
+NetSalary DECIMAL(10,2) NOT NULL,
+FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID) ON
+DELETE CASCADE
+);
+
+CREATE TABLE Tax(
+TaxID INT PRIMARY KEY AUTO_INCREMENT,
+EmployeeID INT,
+TaxYear INT NOT NULL,
+TaxableIncome DECIMAL(10,2) NOT NULL,
+TaxAmount DECIMAL(10,2) NOT NULL,
+FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID) ON DELETE CASCADE
+);
+
+CREATE TABLE FinancialRecord(
+RecordID INT PRIMARY KEY AUTO_INCREMENT,
+EmployeeID INT,
+RecordDate DATE NOT NULL,
+Description TEXT NOT NULL,
+Amount DECIMAL(10,2) NOT NULL,
+RecordType VARCHAR(100) NOT NULL,
+FOREIGN KEY (EmployeeID) REFERENCES Employee (EmployeeID) ON DELETE CASCADE
+);
+
+alter table Payroll modify PayPeriodsEndDate DATE not null;
+
+
+select * from FinancialRecord;
